@@ -12,28 +12,35 @@ public class RecursiveMethods {
 	 *         ...)
 	 */
 	public static double geometricSum(int n) {
-		
-			// FIXME compute the geometric sum for the first n terms recursively
+		double sum = 0;
+		// FIXME compute the geometric sum for the first n terms recursively
+		if (n == 0) {
 			return 0;
-		
+		}
+		sum = Math.pow(0.5, n);
+		return sum + geometricSum(n - 1);
+
 	}
 
 	/**
-	 * This method uses recursion to compute the greatest common divisor
-	 * for the two input values
+	 * This method uses recursion to compute the greatest common divisor for the two
+	 * input values
 	 * 
 	 * @param p first operand
 	 * @param q second operand
 	 * @return greatest common divisor of p and q
 	 */
 	public static int gcd(int p, int q) {
-		
-			// FIXME compute the gcd of p and q using recursion
-			return 0;
-		
-	}
+		if (p % q == 0) {
+			return q;
+		}
 
-	
+		int temp = q;
+		q = p % q;
+		p = temp;
+		return gcd(p, q);
+
+	}
 
 	/**
 	 * This method uses recursion to create a reverse of the given array
@@ -42,10 +49,30 @@ public class RecursiveMethods {
 	 * @return an array with the same data as the input but it reverse order
 	 */
 	public static int[] toReversed(int[] array) {
+
+		// FIXME create a helper method that can recursively reverse the given arr
+		int[] reversed = new int[array.length];
+		reversed = array.clone();
+		if (array.length == 0) {
+
+			return reversed;
+		}
 		
-			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
+	return toReversedHelper(reversed, 0);
 		
+
+
+	}
+
+	public static int[] toReversedHelper(int[] array, int index) {
+		if (index >= array.length / 2) {
+			return array;
+		}
+		int p = array[index];
+		int q = array[array.length - 1 - index];
+		array[index] = q;
+		array[array.length - 1 - index] = p;
+		return toReversedHelper(array, index + 1);
 	}
 
 	/**
@@ -60,7 +87,14 @@ public class RecursiveMethods {
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
 		
-		// FIXME
+		if (radius <= radiusMinimumDrawingThreshold) {
+			StdDraw.circle(xCenter, yCenter, radiusMinimumDrawingThreshold);
+			}
+		
+		StdDraw.circle(xCenter, yCenter, radius);
+		circlesUponCircles(xCenter,yCenter,radius,(radiusMinimumDrawingThreshold/3.0));
+		
+		
 	}
 
 }
